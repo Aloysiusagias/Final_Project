@@ -17,12 +17,12 @@ def algotirma():
     # print('=====================')
     # print(y)
     # print(X)
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
     # print(X_test)
     svm = SVC(kernel='rbf')
     svm.fit(X, y)
+    print(svm.score(X_test, y_test))
     if (svm.predict(test) == '1'):
         return("Positif")
     elif (svm.predict(test) == '0'):
         return("Negatif")
-    # print(svm.score(X_test, y_test))

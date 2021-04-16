@@ -19,18 +19,29 @@ for index, row in df.iterrows():
     datee = row['Tanggal']
     datee = datee.split(" ")
     userr = row['User']
-
+    day = datee[0]
     monthWord = datee[1]
     newWord = monthWord [0].upper() + monthWord [1:3].lower()
     month = int(strptime(newWord,'%b').tm_mon)
+    
     date = int(datee[2])
     year = int(datee[3])
-
+    
     dateAfter = int(date)+1
-    date = date-1
+    datess = dt.datetime(year,month,date)
 
-    start = dt.datetime(year,month,date)
-    finish = dt.datetime(year,month,dateAfter)
+    if(day == "Friday"):
+        dateAfter = datess + dt.timedelta(days=3)
+    elif(day == "Saturday"):
+        dates = datess - dt.timedelta(days=1)
+        dateAfter = datess + dt.timedelta(days=2)
+    elif(day == "Sunday"):
+        dates = datess - dt.timedelta(days=2)
+        dateAfter = datess + dt.timedelta(days=1)
+    else:
+        dateAfter = datess + dt.timedelta(days=1)
+    start = dates
+    finish = dateAfter
     source = 'yahoo'
 
     for d in a:
@@ -43,7 +54,6 @@ for index, row in df.iterrows():
                 bisa = True
             except :
                 continue
-        print (df1)
         if (len(df1) > 1):
             openn = df1.iloc[-2]['Open']
             close = df1.iloc[-1]['Close']
@@ -62,6 +72,7 @@ for index, row in df.iterrows():
 
             print("Reality : ",temp)
             print("Status : ",status)
+            print("User : ",userr)
             print(pesan)
         else : 
             print('Skip')
@@ -73,5 +84,9 @@ for (k,v), (k2,v2) in zip(hit.items(), miss.items()):
         print(k)
         print("Hit : ", v)
         print("Miss : ", v2)
-        rate = int(v)/(int(v) + int(v2))
+        pembagi = (int(v) + int(v2))
+        if (pembagi == 0):
+            rate = 0
+        else :
+            rate = int(v)/pembagi
         print("User Rating : ",str(rate))

@@ -29,7 +29,7 @@ def Preprocessing(teks):
     def case_folding(text):
         text = text.lower()
         return text
-        DATA['Pesan'] = DATA['Pesan'].apply(case_folding)
+    DATA['Pesan'] = DATA['Pesan'].apply(case_folding)
 
     # ------ Tokenizing ---------
 

@@ -3,7 +3,7 @@ from tfidf import Pembobotan
 from svm import algotirma
 import time
 start = time.time()
-teks = "Serok wsbp lumayan"
+teks = "Membalas : Saham mana yg arb berhari2 IKAN mungkin wkwk"
 
 Preprocessing(teks)
 Pembobotan()
