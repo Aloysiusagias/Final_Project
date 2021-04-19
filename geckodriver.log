@@ -175,3 +175,40 @@ JavaScript error: https://stockbit.com/#/StockbitNews line 867 > injectedScript,
 JavaScript error: https://stockbit.com/#/StockbitNews line 867 > injectedScript, line 1: ReferenceError: fbq is not defined
 JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
 JavaScript error: https://connect.facebook.net/en_US/sdk.js?hash=413e3fa657aa06ad6944bec97d7491a5, line 63: uncaught exception: Error: You need to call FB.init() with App ID first.
+[Parent 17300, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1618607180338	Marionette	INFO	Stopped listening on port 64297
+1618679711653	geckodriver	INFO	Listening on 127.0.0.1:52801
+1618679719009	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofiledH01IG"
+1618679721538	Marionette	INFO	Listening on port 52811
+1618679721702	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://connect.facebook.net/en_US/sdk.js?hash=608d7ea0ae4fb08148d30c50c73f4d5a, line 63: uncaught exception: Error: You need to call FB.init() with App ID first.
+JavaScript error: https://stockbit.com/#/login line 867 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/login line 867 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x6B0027,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+1618685240188	Marionette	INFO	Stopped listening on port 52811
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1618769093696	geckodriver	INFO	Listening on 127.0.0.1:56484
+1618769100930	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofile2FiezH"
+1618769103622	Marionette	INFO	Listening on port 56492
+1618769104143	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript error: https://stockbit.com/#/StockbitNews line 867 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 867 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+JavaScript error: https://connect.facebook.net/en_US/sdk.js?hash=f60a4c959acd4984da9de9bd284b3bbd, line 63: uncaught exception: Error: You need to call FB.init() with App ID first.
+[Parent 24556, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1618783042458	Marionette	INFO	Stopped listening on port 56492
