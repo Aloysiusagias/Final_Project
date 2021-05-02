@@ -58,14 +58,15 @@ def predict():
     svm = SVC(kernel='rbf')
     cv = TfidfVectorizer(use_idf=True)
 
-    df = pd.read_csv('readytfidf.csv')
+    df = pd.read_csv('readytfidf3.csv')
+    df = df.sample(frac = 1)
     df['Status'] = df['Status'].replace(['Negatif', 'Positif'], ['0','1'])
     y = df['Status']
     X = df['Normal']
     X = cv.fit_transform(X)
-    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
-    svm.fit(X,y)
-    # print("accuracy score: " + str(svm.score(X_test, y_test)))
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+    svm.fit(X_train,y_train)
+    print("accuracy score: " + str(svm.score(X_test, y_test)))
 
     # for a in prediksi(teks):
     #     print("Prediksi : ",a)
@@ -77,6 +78,7 @@ def predict():
         vect = cv.transform([tekss])
         my_prediction = svm.predict(vect)
         my_prediction = int(my_prediction[0])
+        print("accuracy score: " + str(svm.score(X_test, y_test)))
         print(my_prediction)
         # data = [message]
         # vect = cv.transform(data).toarray()

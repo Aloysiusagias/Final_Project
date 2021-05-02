@@ -212,3 +212,207 @@ JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable
 JavaScript error: https://connect.facebook.net/en_US/sdk.js?hash=f60a4c959acd4984da9de9bd284b3bbd, line 63: uncaught exception: Error: You need to call FB.init() with App ID first.
 [Parent 24556, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
 1618783042458	Marionette	INFO	Stopped listening on port 56492
+1618858084801	geckodriver	INFO	Listening on 127.0.0.1:59704
+1618858092268	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofileJ3hNgy"
+1618858094427	Marionette	INFO	Listening on port 59716
+1618858094457	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/login line 867 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/login line 867 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1618859886732	Marionette	INFO	Stopped listening on port 59716
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619197959437	geckodriver	INFO	Listening on 127.0.0.1:63011
+1619197966064	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofileQL2HYA"
+1619197968455	Marionette	INFO	Listening on port 63019
+1619197968747	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619200859750	Marionette	INFO	Stopped listening on port 63019
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619284378719	geckodriver	INFO	Listening on 127.0.0.1:51116
+1619284385262	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofileLEl0yD"
+1619284388279	Marionette	INFO	Listening on port 51141
+1619284388469	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619287144256	Marionette	INFO	Stopped listening on port 51141
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619366001173	geckodriver	INFO	Listening on 127.0.0.1:50222
+1619366007365	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofileGWQo7D"
+1619366009892	Marionette	INFO	Listening on port 50231
+1619366010068	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619369691706	Marionette	INFO	Stopped listening on port 50231
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619461572983	geckodriver	INFO	Listening on 127.0.0.1:55682
+1619461581146	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilege7gSS"
+1619461582793	Marionette	INFO	Listening on port 55694
+1619461583212	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619462093622	Marionette	INFO	Stopped listening on port 55694
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+"--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilea22wcQ"
+1619461626918	Marionette	INFO	Listening on port 55813
+1619461627132	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619462094426	Marionette	INFO	Stopped listening on port 55813
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619544076943	geckodriver	INFO	Listening on 127.0.0.1:55172
+1619544083869	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofile2l7hys"
+1619544085611	Marionette	INFO	Listening on port 55182
+1619544085940	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 865 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+1619545845471	Marionette	INFO	Stopped listening on port 55182
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619631928176	geckodriver	INFO	Listening on 127.0.0.1:63946
+1619631935054	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilehLJGqk"
+1619631936734	Marionette	INFO	Listening on port 63955
+1619631937115	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619632479334	Marionette	INFO	Stopped listening on port 63955
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619718419879	geckodriver	INFO	Listening on 127.0.0.1:53753
+1619718426347	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilei30SaG"
+1619718427930	Marionette	INFO	Listening on port 53763
+1619718428405	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+1619721690874	Marionette	INFO	Stopped listening on port 53763
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619803527361	geckodriver	INFO	Listening on 127.0.0.1:60738
+1619803534028	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilehYn7EI"
+1619803534297	Marionette	INFO	Marionette enabled
+1619803535427	Marionette	INFO	Listening on port 60747
+1619803535567	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 213: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619808187336	Marionette	INFO	Stopped listening on port 60747
+1619889176397	geckodriver	INFO	Listening on 127.0.0.1:51084
+1619889182965	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofile2Mibjf"
+1619889183264	Marionette	INFO	Marionette enabled
+1619889184610	Marionette	INFO	Listening on port 51093
+1619889185021	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/login line 866 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/login line 866 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+1619891931101	Marionette	INFO	Stopped listening on port 51093
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1619973244567	geckodriver	INFO	Listening on 127.0.0.1:65437
+1619973251446	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\Aloysius\\AppData\\Local\\Temp\\rust_mozprofilezeMgXn"
+1619973251841	Marionette	INFO	Marionette enabled
+1619973253272	Marionette	INFO	Listening on port 65460
+1619973253500	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://web.telegram.org/js/app.js, line 20: asm.js type error: duplicate name 'n' not allowed
+JavaScript warning: https://web.telegram.org/js/app.js, line 31: asm.js type error: numeric literal out of representable integer range
+JavaScript warning: https://web.telegram.org/js/app.js, line 36: asm.js type error: fixnum is not a subtype of double? or floatish
+JavaScript warning: https://web.telegram.org/js/app.js, line 53: asm.js type error: double is not a subtype of int
+JavaScript warning: https://stockbit.com/assets/js/preinit.min.js, line 160: unreachable code after return statement
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: https://stockbit.com/#/StockbitNews line 866 > injectedScript, line 1: ReferenceError: fbq is not defined
+JavaScript warning: https://cdn.zarget.com/144446/337134.js, line 3: unreachable code after return statement
+[Parent 15944, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1619973641827	Marionette	INFO	Stopped listening on port 65460

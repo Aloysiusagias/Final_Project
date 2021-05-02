@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-df = pd.read_csv('Scrap10April.csv', index_col=0)
+df = pd.read_csv('Scrap17April.csv', index_col=0)
 # print(df.size)
 # print(df.iloc[[2]]['Pesan'].values)
 df["Status"] = "Belum"
@@ -31,4 +31,4 @@ for index, row in df.iterrows():
         else :
             print("Inputan salah")
             Salah=True
-df.to_csv("Dataframe Siap/Dataset8.csv")
+df.to_csv("Dataframe Siap/Dataset12.csv")

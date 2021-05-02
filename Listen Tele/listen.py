@@ -7,6 +7,7 @@ import time
 import pandas as pd
 from selenium.webdriver.common.action_chains import ActionChains
 import urllib.request
+from svm import svm
 
 myprofile = webdriver.FirefoxProfile(r'C:\Users\Aloysius\AppData\Roaming\Mozilla\Firefox\Profiles\fcbei8vp.teleScrape')
 PATH = "C:\Program Files (x86)\geckodriver.exe"
@@ -20,18 +21,25 @@ hari = 0
 tanggal2 = []
 tanggal = []
 driver.get('https://web.telegram.org/#/im?p=@TheTradersGroup')
-time.sleep(5)
+# driver.get('https://web.telegram.org/#/im?p=g579054022')
+time.sleep(20)
+temp = ''
+temp2 = ''
+first = True
+ptemp = ''
+wrapper = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]')
+chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
+psn = len(chat)
+Stoped = False
 while True:
     penulis = ''
     last = penulis
     pesan2 = [""]
     jam = ''
-    wrapper = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]')
-    chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
-    psn = len(chat)
     pesan2 = []
     pesan = driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]/div["+str(psn)+"]")
     driver.execute_script("arguments[0].scrollIntoView(true);", pesan)
+    psn -= 1
     # try:
     if (len(pesan.find_elements_by_xpath(".//a[@class='im_message_photo_thumb']")) > 0) :
         # print('ini adalah foto')
@@ -47,6 +55,7 @@ while True:
                     last = last.replace(x.text.strip(), ' ')
             pesan2.insert(0, last)
         jam = jam + pesan.find_element_by_xpath(".//span[@ng-bind='::historyMessage.date | time']").text
+        # print('Masuk1')
     elif (len(pesan.find_elements_by_xpath(".//span[@ng-switch-when='messageActionChatJoined']")) > 0):
         # print('seseorang join')
         # penulis = pesan.find_element_by_xpath(".//div[@class='im_service_message']").text
@@ -54,6 +63,7 @@ while True:
         last = penulis
         pesan2 = [""]
         jam = ''
+        print('Masuk2')
     elif (len(pesan.find_elements_by_xpath(".//span[@class='im_message_date_split_text']")) > 0):
         if((len(pesan.find_elements_by_xpath(".//div[@class='im_message_date_split im_service_message_wrap' and @style='display: none;']")) > 0)):
             penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
@@ -64,6 +74,7 @@ while True:
                     last = last.replace(x.text.strip(), ' ')
             pesan2.insert(0, last)
             jam = jam + pesan.find_element_by_xpath(".//span[@ng-bind='::historyMessage.date | time']").text
+            # print('Masuk3')
         else :
             print("ini adalah tanggal")
             tgl = pesan.find_element_by_xpath(".//span[@class='im_message_date_split_text']").text
@@ -78,6 +89,7 @@ while True:
             belum = (hari!=target)
             print(len(tanggal))
             tanggal2 = []
+            # print('Masuk4')
     else :
         # print('ini adalah pesan biasa')
         penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
@@ -88,6 +100,8 @@ while True:
             if(x.text.strip()!=''):
                 last = last.replace(x.text.strip(), ' ')
         pesan2.insert(0, last)
+        # print('Masuk5')
+        # print(pesan2)
         if(len(pesan.find_elements_by_xpath(".//span[@my-short-message='replyMessage']"))>0):
             balas = pesan.find_element_by_xpath(".//span[@my-short-message='replyMessage']").text
             balas = "Membalas : " + balas
@@ -96,7 +110,9 @@ while True:
                 if(x.text.strip()!=''):
                     balas = balas.replace(x.text.strip(), ' ')
             pesan2.insert(0,balas)
+            # print('Masuk6')
     pesan3 = "\n".join(pesan2)
+    # print(pesan3)
     masuk = False
     stop = [",", ".", "#", "?", "*", "-"]
     cek = pesan3
@@ -105,41 +121,98 @@ while True:
         cek = cek.replace(x, " ")
     for x in pesan3:
         b = x.isascii()
+        # print(x,b)
         if not b:
             pesan3 = pesan3.replace(x, ' ')
-    if any(word in cek.upper().split() for word in Saham):
-        masuk = True
-    if(penulis != ""):
-        if(masuk):
-            bahas = [word for word in Saham if word in cek.upper().split()]
-            for x in penulis:
-                c = x.isascii()
-                if not c:
-                    penulis = penulis.replace(x, ' ')
-            bahas = ",".join(bahas)
-            print("Data : "+str(psn))
-            print("user : "+penulis)
-            # try:
-            # f.write("Data : "+ str(jumlah) +"\nUser : "+ penulis +"\n"+pesan3+"\nSaham : "+bahas+"\nJam : "+jam+"\n==========================\n")
-            # except:
-            #     print("Tidak bisa menampilkan pesan")
-            print(pesan3)
-            print("Saham : "+bahas)
-            print("jam : " + jam)
-            print('=======================================================')
-            item = {
-                'User' : penulis,
-                'Pesan' : pesan3,
-                'Saham' : bahas,
-                'Jam' : jam
-            }
-            tanggal2.append(item)
-        penulis = ""
-        pesan2 = []
-    jam = ""
-    print("Jalan")
-    time.sleep(60)
-    # except:
-    #     penulis = "Error"
-    #     pesan2 = "Error"
-    # print(pesan2)
+    print('banding = ',temp, pesan3)
+    if(temp != pesan3 or first == True):
+        if (temp == ''):
+            temp = pesan3
+        elif (temp2 == ''):
+            temp2 = pesan3
+        if any(word in cek.upper().split() for word in Saham):
+            masuk = True
+        if(penulis != ""):
+            ptemp = penulis
+        else :
+            penulis = ptemp
+        if(True):
+            # if(masuk):
+            if(True):
+                bahas = [word for word in Saham if word in cek.upper().split()]
+                for x in penulis:
+                    c = x.isascii()
+                    if not c:
+                        penulis = penulis.replace(x, ' ')
+                bahas = ",".join(bahas)
+                print("Data : "+str(psn))
+                print("user : "+penulis)
+                # try:
+                # f.write("Data : "+ str(jumlah) +"\nUser : "+ penulis +"\n"+pesan3+"\nSaham : "+bahas+"\nJam : "+jam+"\n==========================\n")
+                # except:
+                #     print("Tidak bisa menampilkan pesan")
+                print("Pesan : ",pesan3)
+                print("Saham : "+bahas)
+                predict = svm(pesan3)
+                print("Label : ",predict)
+                print("jam : " + jam)
+                print('=======================================================')
+                item = {
+                    'User' : penulis,
+                    'Pesan' : pesan3,
+                    'Saham' : bahas,
+                    'Jam' : jam
+                }
+                tanggal2.append(item)
+            penulis = ""
+            pesan2 = []
+        jam = ""
+        if (first == True):
+            Stoped = True
+        # print('jalan1')
+    else :
+        Stoped = True
+    if(Stoped) :
+        # print('jalan2')
+        time.sleep(10)
+        if (not first):
+            if (temp2 != ''):
+                temp = temp2
+        temp2 = ''
+        time.sleep(60)
+        # print('sedang me refresh')
+        driver.execute_script("location.reload()")
+        # driver.get('https://web.telegram.org/#/im?p=@TheTradersGroup')
+        # retries = 1
+        # while retries<5:
+        #     try :
+        #         print('Percobaan ke-',retries)
+        #         # driver.refresh()
+        #         # driver.find_element_by_xpath('//*[@id="ng-app"]').send_keys(Keys.F5)
+        #         driver.execute_script("location.reload()")
+        #     except :
+        #         print('gagal')
+        #         retries+=1
+        # print("Sudah di refresh")
+        time.sleep(10)
+        psn=0
+        while psn==0:
+            wrapper = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]')
+            chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
+            psn = len(chat)
+        Stoped = False
+        temp3 = 0
+        while temp3 != psn:
+            temp3 = psn
+            # driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]').send_keys(Keys.END)
+            pesan = driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]/div["+str(psn)+"]")
+            driver.execute_script("arguments[0].scrollIntoView(true);", pesan)
+            print("************************************SCROLL***********************************************8")
+            time.sleep(2)
+            wrapper = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]')
+            chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
+            psn = len(chat)
+        # except:
+        #     penulis = "Error"
+        #     pesan2 = "Error"
+    first = False

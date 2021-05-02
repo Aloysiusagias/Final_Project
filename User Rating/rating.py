@@ -43,6 +43,7 @@ for index, row in df.iterrows():
     start = dates
     finish = dateAfter
     source = 'yahoo'
+    print(start, finish)
 
     for d in a:
         print(d)
@@ -79,6 +80,7 @@ for index, row in df.iterrows():
     print('='*50)
 
 print('\n\n\n')
+data = []
 for (k,v), (k2,v2) in zip(hit.items(), miss.items()):
     if (k==k2):
         print(k)
@@ -90,3 +92,12 @@ for (k,v), (k2,v2) in zip(hit.items(), miss.items()):
         else :
             rate = int(v)/pembagi
         print("User Rating : ",str(rate))
+        item = {
+            'User' : k,
+            'Hit' : v,
+            'Miss' : v2,
+            'Rate' : rate
+        }
+        data.append(item)
+df = pd.DataFrame(data)
+df.to_csv('Rating.csv')
