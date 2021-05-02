@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+	<header>
+		<div class="container">
+		<div id="brandname">
+			Machine Learning App with Flask
+		</div>
+		<h2>Spam Detector For SMS Messages</h2>
+		
+	</div>
+	</header>
+
+	<div class="ml-container">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+		<p>Enter Your Message Here</p>
+		<!-- <input type="text" name="comment"/> -->
+		<textarea name="message" rows="4" cols="50"></textarea>
+		<br/>
+
+		<input type="submit" class="btn-info" value="predict">
+		
+	</form>
+	
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+	<script>
+		var socket = io.connect('http://127.0.0.1:5000/')
+		socket.on('connect', function(){
+			socket.emit('my event',{
+				data : 'User Connected Aloy'
+			})
+		})
+		socket.on('my response', function(msg){
+			console.log(msg)
+		})
+	</script>
+	
+	
+
+</body>
+</html>
