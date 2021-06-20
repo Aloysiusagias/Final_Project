@@ -22,6 +22,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import urllib.request
 from svm import svm
 import json
+from selenium.webdriver.firefox.options import Options
+from userNull import userNulll
 
 ratee = pd.read_csv('../User Rating/Rating.csv')
 
@@ -67,18 +69,60 @@ def predict():
 @socketio.on('my event')
 def handle_my_custom_event(json):
     def formatJam(teks):
-        print('Jam nya adalah : '+teks)
+        global sawaktu, tawaktu, AM, PM, tawaktu2
+        if(not "sawaktu" in globals()):
+            sawaktu = ''
+            tawaktu = 0
+            tawaktu2 = 0
+            AM = {
+                'sawaktu' : '',
+                'tawaktu' : 0
+            }
+            PM = {
+                'sawaktu' : '',
+                'tawaktu' : 0
+            }
+        # print('Jam nya adalah : '+teks)
         formm = teks.split()
         satuan = formm[1]
         jamm = formm[0]
         jamm = jamm.split(':')
         jam2 = jamm[0]
+        if(int(jam2) == 12):
+            jam2 = "00"
+        elif(int(jam2)<10):
+            jam2 = "0" + str(jam2)
         menit = jamm[1]
         detik = jamm[2]
         formatt = jam2+menit+detik
+        if(sawaktu!=satuan):
+            sawaktu = satuan
+            if(sawaktu == 'AM'):
+                if(formatt!=AM['tawaktu']):
+                    tawaktu +=1
+                    tawaktu2 = tawaktu
+                    AM['tawaktu'] = tawaktu2
+                else:
+                    tawaktu2 = AM['tawaktu']
+            elif(sawaktu == 'PM'):
+                if(formatt!=PM['sawaktu']):
+                    tawaktu +=1
+                    tawaktu2 = tawaktu
+                    PM['tawaktu'] = tawaktu2
+                else:
+                    tawaktu2 = PM['tawaktu']
+        formatt = str(tawaktu2) + formatt
         return int(formatt)
 
-    nama = 'Aku adalah agias'
+    def ascii(teks):
+        for x in teks:
+            b = x.isascii()
+            if not b:
+                teks = teks.replace(x, ' ')
+        return teks
+
+    # options = Options()
+    # options.add_argument('--headless')
 
     myprofile = webdriver.FirefoxProfile(r'C:\Users\Aloysius\AppData\Roaming\Mozilla\Firefox\Profiles\fcbei8vp.teleScrape')
     PATH = "C:\Program Files (x86)\geckodriver.exe"
@@ -92,7 +136,8 @@ def handle_my_custom_event(json):
     itemss=[]
     percakapan = []
     # driver.get('https://web.telegram.org/#/im?p=@TheTradersGroup')
-    driver.get('https://web.telegram.org/#/im?p=g579054022')
+    # driver.get('https://web.telegram.org/#/im?p=g579054022')
+    driver.get('https://web.telegram.org/#/im?p=@ilmucryptopro')
     time.sleep(20)
     temp = ''
     temp2 = ''
@@ -102,16 +147,33 @@ def handle_my_custom_event(json):
     chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
     psn = len(chat)
     Stoped = False
+    tabung = []
     while True:
+        joinn = False
         balas = ''
         penulis = ''
         last = penulis
         pesan2 = [""]
         jam = ''
         pesan2 = []
+        # bisa = False
+        # while not bisa:
+        #     try :
         pesan = driver.find_element_by_xpath("/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]/div["+str(psn)+"]")
+        time.sleep(0.25)
         driver.execute_script("arguments[0].scrollIntoView(true);", pesan)
         psn -= 1
+                # bisa = True
+            # except :
+            #     driver.execute_script("location.reload()")
+            #     print('Masuk error')
+            #     time.sleep(10)
+            #     # driver.get('https://web.telegram.org/#/im?p=@ilmucryptopro')
+            #     # time.sleep(20)
+            #     # wrapper = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]')
+            #     # chat = wrapper.find_elements_by_xpath(".//div[contains(@class, 'im_history_message_wrap')]")
+            #     # psn = len(chat)
+            #     continue
         if (len(pesan.find_elements_by_xpath(".//a[@class='im_message_photo_thumb']")) > 0) :
             # print('ini adalah foto')
             penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
@@ -126,6 +188,14 @@ def handle_my_custom_event(json):
                         last = last.replace(x.text.strip(), ' ')
                 pesan4 = pesan4 + last
                 pesan2.insert(0, last)
+            if (len(pesan.find_elements_by_xpath(".//div[@class='im_message_text']")) > 0):
+                last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
+                emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
+                for x in emo :
+                    if(x.text.strip()!=''):
+                        last = last.replace(x.text.strip(), ' ')
+                pesan4 = pesan4 + last
+                pesan2.insert(0, last)
             jam = jam + pesan.find_element_by_xpath(".//span[@ng-bind='::historyMessage.date | time']").text
         elif (len(pesan.find_elements_by_xpath(".//span[@ng-switch-when='messageActionChatJoined']")) > 0):
             print('seseorang join')
@@ -133,28 +203,56 @@ def handle_my_custom_event(json):
             last = penulis
             pesan2 = [""]
             jam = ''
+            joinn = True
             # print('Masuk2')
         elif (len(pesan.find_elements_by_xpath(".//span[@class='im_message_date_split_text']")) > 0):
             if((len(pesan.find_elements_by_xpath(".//div[@class='im_message_date_split im_service_message_wrap' and @style='display: none;']")) > 0)):
-                print('Ini juga sebenernya pesan biasa')
-                penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
-                last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
+                if(len(pesan.find_elements_by_xpath(".//div[@class='im_message_text']"))>0):
+                    print('Ini juga sebenernya pesan biasa')
+                    penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
+                    last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
+                    emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
+                    if (len(pesan.find_elements_by_xpath(".//div[@class='im_message_document_caption']"))>0):
+                        last = last + pesan.find_element_by_xpath(".//div[@class='im_message_document_caption']").text
+                    for x in emo :
+                        if(x.text.strip()!=''):
+                            last = last.replace(x.text.strip(), ' ')
+                    pesan4 = last
+                    pesan2.insert(0, pesan4)
+                    try :
+                        print('Masuk kesini kali2')
+                        jam = jam + pesan.find_element_by_xpath(".//span[@ng-bind='::historyMessage.date | time']").text
+                        if (jam == ''):
+                            jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
+                            jam = jam + jamm2.get_attribute('data-content')
+                    except : 
+                        print('Seperti nya masuk ke sini2')
+                        jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
+                        jam = jam + jamm2.get_attribute('data-content')
+                    if(len(pesan.find_elements_by_xpath(".//span[@my-short-message='replyMessage']"))>0):
+                        balas = pesan.find_element_by_xpath(".//span[@my-short-message='replyMessage']").text
+                        emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
+                        for x in emo :
+                            if(x.text.strip()!=''):
+                                balas = balas.replace(x.text.strip(), ' ')
+                        pesan2.insert(0,"Membalas : " + balas)
+                else :
+                    print('blong1')
+            elif(len(pesan.find_elements_by_xpath(".//span[@class='im_message_date_text nocopy']"))>0) :
+                jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
+                jam = jam + jamm2.get_attribute('data-content')
+                if(len(pesan.find_elements_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]"))>0):
+                    penulis = pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
+                if(len(pesan.find_elements_by_xpath(".//div[@class='im_message_text']"))>0):
+                    last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
+                else :
+                    last = ''
                 emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
                 for x in emo :
                     if(x.text.strip()!=''):
                         last = last.replace(x.text.strip(), ' ')
                 pesan4 = last
                 pesan2.insert(0, pesan4)
-                try :
-                    print('Masuk kesini kali2')
-                    jam = jam + pesan.find_element_by_xpath(".//span[@ng-bind='::historyMessage.date | time']").text
-                    if (jam == ''):
-                        jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
-                        jam = jam + jamm2.get_attribute('data-content')
-                except : 
-                    print('Seperti nya masuk ke sini2')
-                    jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
-                    jam = jam + jamm2.get_attribute('data-content')
                 if(len(pesan.find_elements_by_xpath(".//span[@my-short-message='replyMessage']"))>0):
                     balas = pesan.find_element_by_xpath(".//span[@my-short-message='replyMessage']").text
                     emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
@@ -162,9 +260,6 @@ def handle_my_custom_event(json):
                         if(x.text.strip()!=''):
                             balas = balas.replace(x.text.strip(), ' ')
                     pesan2.insert(0,"Membalas : " + balas)
-            else :
-                jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
-                jam = jam + jamm2.get_attribute('data-content')
                 print("ini adalah tanggal")
                 tgl = pesan.find_element_by_xpath(".//span[@class='im_message_date_split_text']").text
                 tgl = tgl.replace(",","")
@@ -176,7 +271,14 @@ def handle_my_custom_event(json):
                 belum = (hari!=target)
                 print(len(tanggal))
                 tanggal2 = []
-        else :
+            else :
+                print('seseorang join')
+                penulis = ''
+                last = penulis
+                pesan2 = [""]
+                jam = ''
+                joinn = True
+        elif(len(pesan.find_elements_by_xpath(".//span[@ng-bind='::historyMessage.date | time']"))>0 or len(pesan.find_elements_by_xpath(".//span[@class='im_message_date_text nocopy']"))>0) :
             print('ini adalah pesan biasa')
             penulis = penulis + pesan.find_element_by_xpath(".//a[contains(@class, 'im_message_author user_color_')]").text
             try :
@@ -186,23 +288,48 @@ def handle_my_custom_event(json):
                     jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
                     jam = jam + jamm2.get_attribute('data-content')
             except : 
-                print('Seperti nya masuk ke sini')
-                jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
-                jam = jam + jamm2.get_attribute('data-content')
-            last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
-            emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
-            for x in emo :
-                if(x.text.strip()!=''):
-                    last = last.replace(x.text.strip(), ' ')
-            pesan4 = last
-            pesan2.insert(0, pesan4)
-            if(len(pesan.find_elements_by_xpath(".//span[@my-short-message='replyMessage']"))>0):
-                balas = pesan.find_element_by_xpath(".//span[@my-short-message='replyMessage']").text
+                try:
+                    print('Seperti nya masuk ke sini')
+                    jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
+                    jam = jam + jamm2.get_attribute('data-content')
+                except :
+                    print('seseorang join')
+                    penulis = ''
+                    last = penulis
+                    pesan2 = [""]
+                    jam = ''
+                    joinn = True
+            if(not joinn):
+                last = pesan.find_element_by_xpath(".//div[@class='im_message_text']").text
                 emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
                 for x in emo :
                     if(x.text.strip()!=''):
-                        balas = balas.replace(x.text.strip(), ' ')
-                pesan2.insert(0,"Membalas : " + balas)
+                        last = last.replace(x.text.strip(), ' ')
+                pesan4 = last
+                pesan2.insert(0, pesan4)
+                if(len(pesan.find_elements_by_xpath(".//span[@my-short-message='replyMessage']"))>0):
+                    balas = pesan.find_element_by_xpath(".//span[@my-short-message='replyMessage']").text
+                    emo = pesan.find_elements_by_xpath(".//span[@class='emoji  emoji-spritesheet-0']")
+                    for x in emo :
+                        if(x.text.strip()!=''):
+                            balas = balas.replace(x.text.strip(), ' ')
+                    pesan2.insert(0,"Membalas : " + balas)
+        else :
+            print('seseorang join')
+            penulis = ''
+            last = penulis
+            pesan2 = [""]
+            jam = ''
+            joinn = True
+
+
+
+
+
+
+
+
+
         pesan3 = "\n".join(pesan2)
         masuk = False
         stop = [",", ".", "#", "?", "*", "-"]
@@ -210,11 +337,20 @@ def handle_my_custom_event(json):
         bahas = []
         for x in stop:
             cek = cek.replace(x, " ")
-        for x in pesan3:
-            b = x.isascii()
-            if not b:
-                pesan3 = pesan3.replace(x, ' ')
+        # for x in pesan3:
+        #     b = x.isascii()
+        #     if not b:
+        #         pesan3 = pesan3.replace(x, ' ')
+        pesan3 = ascii(pesan3)
+        pesan4 = ascii(pesan4)
+        balas = ascii(balas)
         print('Jam sebelum berubah : ','|'+str(jam)+'|')
+        if(jam=='' and not joinn):
+            if(len(pesan.find_elements_by_xpath(".//span[@class='im_message_date_text nocopy']"))>0):
+                jamm2 = pesan.find_element_by_xpath(".//span[@class='im_message_date_text nocopy']")
+                jam = jam + jamm2.get_attribute('data-content')
+            else :
+                print('blong2')
         if('M' not in str(jam)):
             jam2 = 0
         elif(jam!=0) :
@@ -229,7 +365,13 @@ def handle_my_custom_event(json):
         elif(not isinstance(temp,int)) :
             temp = 0
         print('banding = ',temp,'<', jam2)
-        if(temp < jam2 or first):
+        print(joinn)
+        print("ini adalah first = ", first)
+
+
+
+
+        if((temp < jam2 or first) and not joinn):
             if (first):
                 temp = jam2
                 temp2 = jam2
@@ -237,13 +379,35 @@ def handle_my_custom_event(json):
                 temp2 = jam2
             if any(word in cek.upper().split() for word in Saham):
                 masuk = True
-            if(penulis != ""):
-                ptemp = penulis
-            else :
-                penulis = ptemp
-            if(True):
-                if(True):
-                    bahas = [word for word in Saham if word in cek.upper().split()]
+            # if(penulis != ""):
+            #     ptemp = penulis
+            # else :
+            #     penulis = ptemp
+            if(penulis == ''):
+                penulis = userNulll(driver, psn)
+            isitabung = {
+                'Penulis' : penulis,
+                'Pesan3' : pesan3,
+                'Cek' : cek,
+                'Jam' : jam,
+                'Balas' : balas,
+                'Pesan4' : pesan4
+            }
+            tabung.append(isitabung)
+            if (first == True):
+                Stoped = True
+        else :
+            if(not joinn):
+                Stoped = True
+            else:
+                Stoped = False
+
+        if(Stoped) :
+            if(tabung):
+                tabung.reverse()
+                for isi in tabung:
+                    bahas = [word for word in Saham if word in isi['Cek'].upper().split()]
+                    penulis = isi['Penulis']
                     for x in penulis:
                         c = x.isascii()
                         if not c:
@@ -251,37 +415,41 @@ def handle_my_custom_event(json):
                     bahas = ",".join(bahas)
                     print("Data : "+str(psn))
                     print("user : "+penulis)
-                    print("Pesan : ",pesan3)
+                    print("Pesan : ",isi['Pesan3'])
                     print("Saham : "+bahas)
-                    predict = svm(pesan3)
+                    predict = svm(isi['Pesan3'])
                     print("Label : ",predict)
-                    print("jam : " + jam)
+                    print("jam : " + isi['Jam'])
                     print('=======================================================')
                     ada = False
+                    balas = isi['Balas']
                     print('Balas =',balas)
                     print('Percakapan =',percakapan)
-                    counttt = 0
-                    if(not percakapan):
+                    perindex = 0
+                    # counttt = 0
+                    pesan4 = isi['Pesan4']
+                    pesan4 = pesan4.replace('\n', ' ')
+                    if(not percakapan and pesan4!=''):
                         print('Cakap1')
                         percakapan.append([pesan4])
                         perindex = 1
                         ada = True
-                    elif(balas!='') :
+                    elif(balas!='' and pesan4!='') :
                         for a in percakapan:
                             print('Sub percakapan =',a)
                             perindex2 = percakapan.index(a)
                             for b in a:
-                                if(counttt==30):
-                                    print('############Batas#####################')
-                                    time.sleep(99)
-                                counttt+=1
+                                # if(counttt==30):
+                                #     print('############Batas#####################')
+                                #     time.sleep(99)
+                                # counttt+=1
                                 print('Sub a =',b+'||')
-                                if(balas in b and balas!=''):
+                                if(isi['Balas'] in b and isi['Balas']!=''):
                                     print('Cakap2')
                                     percakapan[perindex2].append(pesan4)
                                     perindex = perindex2 + 1
                                     ada = True
-                    if(not ada):
+                    if(not ada and pesan4!=''):
                         print('Cakap3')
                         percakapan.append([pesan4])
                         perindex = percakapan.index([pesan4]) + 1
@@ -298,10 +466,11 @@ def handle_my_custom_event(json):
                         rate = 'No Record'
                     item = {
                         'User' : penulis,
-                        'Pesan' : pesan3,
+                        'Pesan' : pesan4,
+                        'Balas' : balas,
                         'Saham' : bahas,
                         'Label' : predict,
-                        'Jam' : jam,
+                        'Jam' : isi['Jam'],
                         'Hit' : str(hit),
                         'Miss' : str(miss),
                         'Rate' : str(rate),
@@ -311,27 +480,23 @@ def handle_my_custom_event(json):
                     # if(not pesan3==''):
                     #     emit('my response', item)
                     tanggal2.append(item)
-                penulis = ""
-                pesan2 = []
-            jam = ""
-            print('$$$$$$$$$$$$$$$$$$$$$$$$END OF FOR$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-            if (first == True):
-                Stoped = True
-        else :
-            Stoped = True
-        if(Stoped) :
+                    penulis = ""
+                    pesan2 = []
+                    jam = ""
+                    print('$$$$$$$$$$$$$$$$$$$$$$$$END OF FOR$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
             if(itemss):
-                itemss.reverse()
+                # itemss.reverse()
                 for it in itemss:
                     emit('my response', it)
             itemss=[]
+            tabung = []
             # time.sleep(10)
             print('Temp sebelum masuk stop : ',temp)
             if (not first):
                 if (temp2 != ''):
                     temp = temp2
             temp2 = ''
-            # time.sleep(60)
+            time.sleep(300)
             driver.execute_script("location.reload()")
             time.sleep(10)
             psn=0
@@ -352,6 +517,9 @@ def handle_my_custom_event(json):
                 psn = len(chat)
         print('Jam di akhir = ',jam)
         print('Temp di akhir = ',temp)
-        first = False
+        if (joinn and first):
+            first = True
+        else :
+            first = False
 if __name__ == '__main__':
     socketio.run(app)

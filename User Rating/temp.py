@@ -32,14 +32,22 @@ import datetime as dt
 #     print("pagi")
 
 
-df = pd.read_csv('Rating.csv')
-# print(df)
+# df = pd.read_csv('Rating.csv')
+# # print(df)
 
-user = 'Aloysious Agias'
-exist = user in df.User.values
+# user = 'Aloysious Agias'
+# exist = user in df.User.values
 
-df1 = df[df['User']==user]
-# hit = df1.iloc[0]['Hit']
-# miss = df1.iloc[0]['Miss']
-# rate = df1.iloc[0]['Rate']
-print(exist)
+# df1 = df[df['User']==user]
+# # hit = df1.iloc[0]['Hit']
+# # miss = df1.iloc[0]['Miss']
+# # rate = df1.iloc[0]['Rate']
+# print(exist)
+
+df = pd.read_csv('Siap.csv')
+user = df['User'].unique() 
+hit = dict((el,0) for el in user)
+miss = dict((el,0) for el in user)
+
+print(hit)
+print(miss)
