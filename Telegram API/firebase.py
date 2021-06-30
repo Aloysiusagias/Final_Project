@@ -1,6 +1,6 @@
 import pyrebase
 
-def insertt(data, grup):
+def insertt(data):
     firebaseConfig = {
         "apiKey": "AIzaSyBO9fmyGtUOGCnG_4CcXXwCMGlUGSIRi38",
         "authDomain": "finalproject-af65a.firebaseapp.com",
@@ -14,7 +14,5 @@ def insertt(data, grup):
 
     firebase = pyrebase.initialize_app(firebaseConfig)
     db = firebase.database()
-    grup = grup.replace(' ', '_')
-    grup = grup.lower()
 
-    db.child(grup).push(data)
+    db.child('grup/'+data['grup']).push(data)

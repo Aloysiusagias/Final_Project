@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Python Chat App Yo</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <style>
+      div.msg_bbl {
+        background-color: #ddd;
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: #555;
+        margin-bottom: 5px;
+      }
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="text-center well"><b>My Super Python Chat App</b></div>
+
+    <div class="container">
+      <div class="col-sm-8">
+        <div class="no_message">
+          <h1 style='color: #ccc'>No message yet..</h1>
+          <div class="message_holder"></div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="no_message">
+          <h1 style='color: #ccc'>No message yet..</h1>
+          <div class="message_holder2"></div>
+        </div>
+        <!-- <form action="" method="POST">
+          <b>Type your message below <span class="glyphicon glyphicon-arrow-down"></span></b>
+          <div class="clearfix" style="margin-top: 5px;"></div>
+          <input type="text" class="username form-control" placeholder="User Name">
+          <div style="padding-top: 5px;"></div>
+          <input type="text" class="message form-control" placeholder="Messages">
+          <div style="padding-top: 5px;"></div>
+          <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span> Send</button>
+        </form> -->
+      </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+	<script>
+    var firebaseConfig = {
+            apiKey: "AIzaSyBO9fmyGtUOGCnG_4CcXXwCMGlUGSIRi38",
+            authDomain: "finalproject-af65a.firebaseapp.com",
+            databaseURL: "https://finalproject-af65a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "finalproject-af65a",
+            storageBucket: "finalproject-af65a.appspot.com",
+            messagingSenderId: "120718877342",
+            appId: "1:120718877342:web:d6e808dbcf42ec5035518f",
+            measurementId: "G-VWZDM26D4Z"
+        };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    $( 'h1' ).remove()
+    var reff = firebase.database().ref('percobaan_ta/')
+    var percakapan = []
+    var perindex = 0
+    reff.on('child_added', (data)=>{
+        console.log(percakapan)
+        var ada = false
+        var a = '<div class="msg_bbl"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+        if(data.val()['balas_pesan'] != '-'){
+          a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
+        }
+        a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
+          +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'</div>'
+          $( 'div.message_holder' ).append(a)
+
+          if(percakapan.length==0){
+            percakapan.push([data.val()['message_id']])
+            perindex = 1
+            ada = true
+          } else if (data.val()['balas_message_id'] != '-'){
+            percakapan.forEach((a, ind)=>{
+              perindex2 = ind
+              a.forEach((b, ind2)=>{
+                if(data.val()['balas_message_id'] == b){
+                  percakapan[perindex2] = percakapan[perindex2].concat(data.val()['message_id'])
+                  perindex = perindex2 + 1
+                  ada = true
+                }
+              })
+            })
+          }
+          if(!ada){
+            console.log('masuk ada')
+            percakapan.push([data.val()['message_id']])
+            perindex = percakapan.length
+          }
+          // else if (data.val()['balas_message_id'])
+
+
+
+          dataa = !!document.getElementById("percakapan".concat(perindex))
+          console.log(dataa)
+          if(dataa){
+            console.log("Jalan1")
+            cakap = document.getElementById("percakapan".concat(perindex))
+            $(cakap).append(
+              '<div id="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+              +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'
+            )
+            cakap.style.display = "block";
+          } else {
+            console.log("Jalan2")
+            $( 'div.message_holder2' ).append( '<div id='+'percakapan'.concat(perindex)+' class="msg_bbl"> <b style="color: #000"> PERCAKAPAN '.concat(perindex)+'</b>'+'<div class="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+              +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'+'</div>')
+              document.getElementById("percakapan".concat(perindex)).style.display = "none";
+          }
+    })
+	</script>
+  </body>
+</html>

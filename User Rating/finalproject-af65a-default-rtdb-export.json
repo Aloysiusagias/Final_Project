@@ -1,0 +1,27 @@
+{
+  "grup" : {
+    "db1" : 1,
+    "percobaan_ta" : {
+      "-Mcj8A5gQvFBjIr1-hJ9" : {
+        "balas_message_id" : "-",
+        "balas_pesan" : "-",
+        "balas_user" : "-",
+        "grup" : "percobaan_ta",
+        "message_id" : 215,
+        "pesan" : "tess",
+        "prediksi" : "Hapus",
+        "user" : "Al Agias Bayuasa"
+      },
+      "-McjBR6F9h1TXBQUfA6s" : {
+        "balas_message_id" : 215,
+        "balas_pesan" : "tess",
+        "balas_user" : "Al Agias Bayuasa",
+        "grup" : "percobaan_ta",
+        "message_id" : 216,
+        "pesan" : "balass",
+        "prediksi" : "Hapus",
+        "user" : "Al Agias Bayuasa"
+      }
+    }
+  }
+}

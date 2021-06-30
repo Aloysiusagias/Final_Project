@@ -19,14 +19,13 @@
         color: #555;
         margin-bottom: 5px;
       }
+      div.message_holder{
+        width: 100%;
+        height: 600px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
     </style>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
 
@@ -35,8 +34,9 @@
     <div class="container">
       <div class="col-sm-8">
         <div class="no_message">
+          <div class="btn_grup"></div>
           <h1 style='color: #ccc'>No message yet..</h1>
-          <div class="message_holder"></div>
+          <div id="message_holder" class="message_holder"></div>
         </div>
       </div>
       <div class="col-sm-4">
@@ -67,6 +67,7 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script>
     var firebaseConfig = {
             apiKey: "AIzaSyBO9fmyGtUOGCnG_4CcXXwCMGlUGSIRi38",
@@ -81,62 +82,272 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
     $( 'h1' ).remove()
-    var reff = firebase.database().ref('percobaan_ta/')
+    var grup = firebase.database().ref('grup/')
     var percakapan = []
     var perindex = 0
-    reff.on('child_added', (data)=>{
-        console.log(percakapan)
-        var ada = false
-        var a = '<div class="msg_bbl"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
-        if(data.val()['balas_pesan'] != '-'){
-          a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
-        }
-        a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
-          +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'</div>'
-          $( 'div.message_holder' ).append(a)
+    var select_grup = 'percobaan_ta'
+    grup.once('value',snapshot=>{
+      snapshot.forEach(child => {
+        console.log(child.key);
+        var a = '<button class="btn btn-success btn-block" onclick="ganti(\''+child.key+'\')">'+child.key+'</button>'
+        $( 'div.btn_grup' ).append(a)
+      })
+    })
+    // $("button").click(function() {
+    //   var fired_button = $(this).val();
+    //   alert(fired_button);
+    //   console.log(123)
+    // });
 
-          if(percakapan.length==0){
-            percakapan.push([data.val()['message_id']])
-            perindex = 1
-            ada = true
-          } else if (data.val()['balas_message_id'] != '-'){
-            percakapan.forEach((a, ind)=>{
-              perindex2 = ind
-              a.forEach((b, ind2)=>{
-                if(data.val()['balas_message_id'] == b){
-                  percakapan[perindex2] = percakapan[perindex2].concat(data.val()['message_id'])
-                  perindex = perindex2 + 1
-                  ada = true
-                }
+
+
+
+    var reff = firebase.database().ref('grup/')
+    function ganti(a){
+      var reff = firebase.database().ref('grup/'+a)
+      $( 'div.msg_bbl' ).remove()
+      select_grup = a
+      tampil(reff)
+      console.log('jalan')
+    }
+
+    // function ambil_ratings(){
+    //   return new Promise(resolve => {
+    //     var ambil = firebase.database().ref('Rating/')
+    //     var Rate = ['No Record','No Record','No Record']
+    //     var rating = {}
+    //     ambil.once('value', (snapshot)=>{
+    //       snapshot.forEach((data)=>{
+    //         rating[data.key] = {
+    //         'Hit' : data.val()['Hit'],
+    //         'Miss' : data.val()['Miss'],
+    //         'Rate' : data.val()['Rate']
+    //         }
+    //       })
+    //       // console.log('RATES', rating)
+    //       resolve(rating)
+    //     })
+    //   })
+    // }
+    // var c = 'asdasd'
+    // function asd(sda){
+    //   c = sda
+    //   console.log('asdasdasdasd',c)
+    // }
+
+    // // var rating = ambil_ratings()
+    // // rating.then((data) => {var aaa = data})
+    // // console.log(aaa)
+    // var a = 'asdasd'
+    // async function cobaAsync(){
+    //   const coba = await ambil_ratings();
+    //   a = coba
+    //   console.log(a)
+    //   asd(a)
+    // }
+
+    // var rateeee = cobaAsync()
+    // console.log('AVCDSA',c)
+
+    function tampil(reff){
+      reff.once('value', (snapshot)=>{
+        percakapan = []
+        snapshot.forEach((data) => {
+          // var Rate = ambil_rating(data.val()['user'])
+          var Rate = ['No Record','No Record','No Record']
+          console.log('Raate', Rate)
+          var ada = false
+          var a = '<div class="msg_bbl msg_bbl3"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+          if(data.val()['balas_pesan'] != '-'){
+            a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
+          }
+          a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
+            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'Rating : '+'</b>'+'<br>'
+            +'Hit : '+Rate[0]+'<br>'+' Miss : '+Rate[1]+'<br>'+'Rate : '+Rate[2]+'</div>'
+            $( 'div.message_holder' ).append(a)
+
+            if(percakapan.length==0){
+              percakapan.push([data.val()['message_id']])
+              perindex = 1
+              ada = true
+            } else if (data.val()['balas_message_id'] != '-'){
+              percakapan.forEach((a, ind)=>{
+                perindex2 = ind
+                a.forEach((b, ind2)=>{
+                  if(data.val()['balas_message_id'] == b){
+                    percakapan[perindex2] = percakapan[perindex2].concat(data.val()['message_id'])
+                    perindex = perindex2 + 1
+                    ada = true
+                  }
+                })
               })
-            })
+            }
+            if(!ada){
+              console.log('masuk ada')
+              percakapan.push([data.val()['message_id']])
+              perindex = percakapan.length
+            }
+            // else if (data.val()['balas_message_id'])
+
+            dataa = !!document.getElementById("percakapan".concat(perindex))
+            console.log(dataa)
+            if(dataa){
+              console.log("Jalan1")
+              cakap = document.getElementById("percakapan".concat(perindex))
+              $(cakap).append(
+                '<div id="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+                +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'
+              )
+              cakap.style.display = "block";
+            } else {
+              console.log("Jalan2")
+              $( 'div.message_holder2' ).append( '<div id='+'percakapan'.concat(perindex)+' class="msg_bbl"> <b style="color: #000"> PERCAKAPAN '.concat(perindex)+'</b>'+'<div class="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+                +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'+'</div>')
+                document.getElementById("percakapan".concat(perindex)).style.display = "none";
+            }
+            var pjg = document.getElementsByClassName("msg_bbl3").length - 1
+            console.log('panjang ',pjg)
+            document.getElementsByClassName("msg_bbl3")[pjg].scrollIntoView();
+        })
+      })
+    }
+
+    // function ambil_rating(user){
+    //   var ambil = firebase.database().ref('Rating/')
+    //   var Rate = ['No Record','No Record','No Record']
+    //   ambil.once('value', (snapshot)=>{
+    //     snapshot.forEach((data)=>{
+    //       if (data.key == user){
+    //         Rate[0] = data.val()['Hit']
+    //         Rate[1] = data.val()['Miss']
+    //         Rate[2] = data.val()['Rate']
+    //       }
+    //     })
+    //     console.log('RATES', Rate)
+    //     return Rate
+    //   })
+    // }
+
+    reff.on('child_added', (data)=>{
+      // var Rate = ambil_rating(data.val()['user'])
+      var Rate = ['No Record','No Record','No Record']
+      console.log(data.val())
+      console.log(select_grup)
+      console.log(percakapan)
+      console.log("masukkkk")
+        if (select_grup == data.val()['grup']){
+          var ada = false
+          var a = '<div class="msg_bbl msg_bbl3"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+          if(data.val()['balas_pesan'] != '-'){
+            a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
           }
-          if(!ada){
-            console.log('masuk ada')
-            percakapan.push([data.val()['message_id']])
-            perindex = percakapan.length
-          }
-          // else if (data.val()['balas_message_id'])
+          a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
+            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'Rating : '+'</b>'+'<br>'
+        +'Hit : '+Rate[0]+'<br>'+' Miss : '+Rate[1]+'<br>'+'Rate : '+Rate[2]+'</div>'
+            $( 'div.message_holder' ).append(a)
 
+            if(percakapan.length==0){
+              percakapan.push([data.val()['message_id']])
+              perindex = 1
+              ada = true
+            } else if (data.val()['balas_message_id'] != '-'){
+              percakapan.forEach((a, ind)=>{
+                perindex2 = ind
+                a.forEach((b, ind2)=>{
+                  if(data.val()['balas_message_id'] == b){
+                    percakapan[perindex2] = percakapan[perindex2].concat(data.val()['message_id'])
+                    perindex = perindex2 + 1
+                    ada = true
+                  }
+                })
+              })
+            }
+            if(!ada){
+              console.log('masuk ada')
+              percakapan.push([data.val()['message_id']])
+              perindex = percakapan.length
+            }
+            // else if (data.val()['balas_message_id'])
 
-
-          dataa = !!document.getElementById("percakapan".concat(perindex))
-          console.log(dataa)
-          if(dataa){
-            console.log("Jalan1")
-            cakap = document.getElementById("percakapan".concat(perindex))
-            $(cakap).append(
-              '<div id="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
-              +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'
-            )
-            cakap.style.display = "block";
-          } else {
-            console.log("Jalan2")
-            $( 'div.message_holder2' ).append( '<div id='+'percakapan'.concat(perindex)+' class="msg_bbl"> <b style="color: #000"> PERCAKAPAN '.concat(perindex)+'</b>'+'<div class="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
-              +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'+'</div>')
-              document.getElementById("percakapan".concat(perindex)).style.display = "none";
+            dataa = !!document.getElementById("percakapan".concat(perindex))
+            console.log(dataa)
+            if(dataa){
+              console.log("Jalan1")
+              cakap = document.getElementById("percakapan".concat(perindex))
+              $(cakap).append(
+                '<div id="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+                +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'
+              )
+              cakap.style.display = "block";
+            } else {
+              console.log("Jalan2")
+              $( 'div.message_holder2' ).append( '<div id='+'percakapan'.concat(perindex)+' class="msg_bbl"> <b style="color: #000"> PERCAKAPAN '.concat(perindex)+'</b>'+'<div class="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+                +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'+'</div>')
+                document.getElementById("percakapan".concat(perindex)).style.display = "none";
+            }
+            var pjg = document.getElementsByClassName("msg_bbl3").length - 1
+            console.log('panjang ',pjg)
+            document.getElementsByClassName("msg_bbl3")[pjg].scrollIntoView();
           }
     })
+    // function tampil(reff){
+    //   reff.on('child_added', (data)=>{
+    //     console.log(percakapan)
+    //     var ada = false
+    //     var a = '<div class="msg_bbl msg_bbl3"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+    //     if(data.val()['balas_pesan'] != '-'){
+    //       a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
+    //     }
+    //     a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
+    //       +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'</div>'
+    //       $( 'div.message_holder' ).append(a)
+
+    //       if(percakapan.length==0){
+    //         percakapan.push([data.val()['message_id']])
+    //         perindex = 1
+    //         ada = true
+    //       } else if (data.val()['balas_message_id'] != '-'){
+    //         percakapan.forEach((a, ind)=>{
+    //           perindex2 = ind
+    //           a.forEach((b, ind2)=>{
+    //             if(data.val()['balas_message_id'] == b){
+    //               percakapan[perindex2] = percakapan[perindex2].concat(data.val()['message_id'])
+    //               perindex = perindex2 + 1
+    //               ada = true
+    //             }
+    //           })
+    //         })
+    //       }
+    //       if(!ada){
+    //         console.log('masuk ada')
+    //         percakapan.push([data.val()['message_id']])
+    //         perindex = percakapan.length
+    //       }
+    //       // else if (data.val()['balas_message_id'])
+
+
+
+    //       dataa = !!document.getElementById("percakapan".concat(perindex))
+    //       console.log(dataa)
+    //       if(dataa){
+    //         console.log("Jalan1")
+    //         cakap = document.getElementById("percakapan".concat(perindex))
+    //         $(cakap).append(
+    //           '<div id="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+    //           +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'
+    //         )
+    //         cakap.style.display = "block";
+    //       } else {
+    //         console.log("Jalan2")
+    //         $( 'div.message_holder2' ).append( '<div id='+'percakapan'.concat(perindex)+' class="msg_bbl"> <b style="color: #000"> PERCAKAPAN '.concat(perindex)+'</b>'+'<div class="msg_bbl2"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
+    //           +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br></div>'+'</div>')
+    //           document.getElementById("percakapan".concat(perindex)).style.display = "none";
+    //       }
+    //       var pjg = document.getElementsByClassName("msg_bbl3").length - 1
+    //       console.log('panjang ',pjg)
+    //       document.getElementsByClassName("msg_bbl3")[pjg].scrollIntoView();
+    // })
+    // }
 	</script>
   </body>
 </html>
