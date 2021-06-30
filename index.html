@@ -102,7 +102,8 @@
 
 
 
-    var reff = firebase.database().ref('grup/percobaan_ta')
+    var reff = firebase.database().ref('grup/')
+    var reff2 = firebase.database().ref('grup/percobaan_ta')
     function ganti(a){
       var reff = firebase.database().ref('grup/'+a)
       $( 'div.msg_bbl' ).remove()
@@ -228,7 +229,7 @@
     //   })
     // }
 
-    reff.on('child_added', (data)=>{
+    reff2.on('child_added', (data)=>{
       // var Rate = ambil_rating(data.val()['user'])
       var Rate = ['No Record','No Record','No Record']
       console.log(data.val())
