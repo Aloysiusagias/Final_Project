@@ -85,31 +85,24 @@
     var grup = firebase.database().ref('grup/')
     var percakapan = []
     var perindex = 0
-    var select_grup = 'percobaan_ta'
+    var select_grup = ''
+    var gruupp = []
     grup.once('value',snapshot=>{
       snapshot.forEach(child => {
         console.log(child.key);
         var a = '<button class="btn btn-success btn-block" onclick="ganti(\''+child.key+'\')">'+child.key+'</button>'
         $( 'div.btn_grup' ).append(a)
+        gruupp.push(child.key)
       })
     })
-    // $("button").click(function() {
-    //   var fired_button = $(this).val();
-    //   alert(fired_button);
-    //   console.log(123)
-    // });
-
-
-
 
     var reff = firebase.database().ref('grup/')
-    var reff2 = firebase.database().ref('grup/percobaan_ta')
     function ganti(a){
-      var reff = firebase.database().ref('grup/'+a)
+      reff = firebase.database().ref('grup/'+a)
       $( 'div.msg_bbl' ).remove()
       select_grup = a
-      tampil(reff)
-      console.log('jalan')
+      tampil(reff,a)
+      console.log('jalan ganti')
     }
 
     // function ambil_ratings(){
@@ -150,7 +143,8 @@
     // var rateeee = cobaAsync()
     // console.log('AVCDSA',c)
 
-    function tampil(reff){
+    function tampil(reff,b){
+      select_grup = b
       reff.once('value', (snapshot)=>{
         percakapan = []
         snapshot.forEach((data) => {
@@ -228,15 +222,20 @@
     //     return Rate
     //   })
     // }
-
-    reff2.on('child_added', (data)=>{
+    gruupp = ['grup_saham_a', 'percobaan_ta']
+    console.log('grup = ',gruupp)
+    gruupp.forEach((value) => {
+      console.log('jalan gk nih')
+      var reff2 = firebase.database().ref('grup/'+value)
+      reff2.on('child_added', (data)=>{
       // var Rate = ambil_rating(data.val()['user'])
+      if (data.val()['grup'] == select_grup){
       var Rate = ['No Record','No Record','No Record']
       console.log(data.val())
       console.log(select_grup)
       console.log(percakapan)
       console.log("masukkkk")
-        if (select_grup == data.val()['grup']){
+      console.log(reff)
           var ada = false
           var a = '<div class="msg_bbl msg_bbl3"><b style="color: #000">'+'User : '+'</b>'+data.val()['user']+'<br>'
           if(data.val()['balas_pesan'] != '-'){
@@ -289,7 +288,8 @@
             var pjg = document.getElementsByClassName("msg_bbl3").length - 1
             console.log('panjang ',pjg)
             document.getElementsByClassName("msg_bbl3")[pjg].scrollIntoView();
-          }
+      }
+    })
     })
     // function tampil(reff){
     //   reff.on('child_added', (data)=>{
