@@ -82,7 +82,7 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
     $( 'h1' ).remove()
-    var grup = firebase.database().ref('grup/percobaan_ta')
+    var grup = firebase.database().ref('grup/')
     var percakapan = []
     var perindex = 0
     var select_grup = 'percobaan_ta'
@@ -102,7 +102,7 @@
 
 
 
-    var reff = firebase.database().ref('grup/')
+    var reff = firebase.database().ref('grup/percobaan_ta')
     function ganti(a){
       var reff = firebase.database().ref('grup/'+a)
       $( 'div.msg_bbl' ).remove()
