@@ -12,6 +12,7 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import csv
 import math
+from nltk.tokenize import word_tokenize
 
 
 
@@ -19,7 +20,7 @@ file = open('indonesian_ngram_pos_tag.pickle', 'rb')
 ngram_tagger = pickle.load(file)
 file.close()
 
-testingfix = "bosan lihat lesu"
+testingfix = "indonesia anjing"
 testingfix = testingfix.split(" ")
 print(testingfix)
 testingfix = [testingfix]
@@ -35,4 +36,22 @@ for i in testingfix:
     d[j]=dictcorpus
     j+=1
 
-print(d)
+kalimat = "indonesia anjing"
+
+c = ngram_tagger.tag(word_tokenize(kalimat))
+print("N-gram tagger")
+print(c)
+
+file = open('indonesian_classifier_pos_tag.pickle', 'rb')
+classifier_tagger = pickle.load(file)
+file.close()
+
+print('\nClassifier tagger')
+print(classifier_tagger.tag(word_tokenize(kalimat)))
+
+file = open('indonesian_tnt_pos_tag.pickle', 'rb')
+tnt_tagger = pickle.load(file)
+file.close()
+
+print('\nTnT tagger')
+print(tnt_tagger.tag(word_tokenize(kalimat)))

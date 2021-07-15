@@ -3,6 +3,7 @@ import csv
 import pandas as pd
 import json
 from firebase import insertt
+import pandas as pd
 # from SQL import insertt
 
 
@@ -17,6 +18,26 @@ def respons(input_text):
         last = isi_from['last_name']
         penulis = first + " " + last
         return penulis
+    
+    def ambil_rating(user):
+        rate = pd.read_csv('Rating.csv',index_col=0)
+        a = rate[rate['User']==user]
+        if(not a.empty):
+            print(a)
+            hit = a.iloc[0][1]
+            miss = a.iloc[0][2]
+            rating = a.iloc[0][3]
+        else :
+            hit = "No record"
+            miss = "No record"
+            rating = "No record"
+        return {
+            "hit" : hit,
+            "miss" : miss,
+            "rating" : rating
+        }
+
+        
 
     #Mengubah json menjadi dict
     penulis = 'kosong'
@@ -95,6 +116,12 @@ def respons(input_text):
         predict = svm(teks)
     else:
         predict = 'Hapus'
+
+    b = ambil_rating(penulis)
+    hit = b["hit"]
+    miss = b["miss"]
+    rating = b["rating"]
+
     data = {}
     data['user'] = penulis
     data['pesan'] = teks
@@ -104,6 +131,10 @@ def respons(input_text):
     data['message_id'] = message_id
     data['balas_message_id'] = balas_message_id
     data['grup'] = grup
+    data['hit'] = hit
+    data['miss'] = miss
+    data['rating_user'] = rating
+
     insertt(data)
     print("Penulis : ",penulis,"\nbalas_user : ",balas_user,"\nbalas_pesan : ",
     balas_pesan,"\nPrediksi : ",predict,"\nIndikasi : ", indi, "\nSaham : ",bahas,

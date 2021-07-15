@@ -157,8 +157,8 @@
             a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
           }
           a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
-            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'Rating : '+'</b>'+'<br>'
-            +'Hit : '+Rate[0]+'<br>'+' Miss : '+Rate[1]+'<br>'+'Rate : '+Rate[2]+'</div>'
+            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'<br>'+'Rating : '+'</b>'+'<br>'
+            +'Hit : '+data.val()['hit']+'<br>'+' Miss : '+data.val()['miss']+'<br>'+'Rate : '+data.val()['rating']+'</div>'
             $( 'div.message_holder' ).append(a)
 
             if(percakapan.length==0){
@@ -242,8 +242,8 @@
             a = a + '<b style="color: #000">'+'Membalas : '+'</b>'+data.val()['balas_pesan']+'<br>'
           }
           a = a +'<b style="color: #000">'+'Pesan : '+'</b>'+data.val()['pesan']+'<br>'
-            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'Rating : '+'</b>'+'<br>'
-        +'Hit : '+Rate[0]+'<br>'+' Miss : '+Rate[1]+'<br>'+'Rate : '+Rate[2]+'</div>'
+            +'<b style="color: #000">'+'Label : '+'</b>'+data.val()['prediksi']+'<br>'+'Rating : '+'</b>'+'<br>'
+        +'Hit : '+data.val()['hit']+'<br>'+' Miss : '+data.val()['miss']+'<br>'+'Rate : '+data.val()['rating']+'</div>'
             $( 'div.message_holder' ).append(a)
 
             if(percakapan.length==0){
